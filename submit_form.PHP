@@ -1,12 +1,12 @@
 <?php
 
-// Check if the form was submitted using the POST method
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Check if the form was submitted using the GET method
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    // Get the form data securely
-    $name = htmlspecialchars($_POST['name']);
-    $email = htmlspecialchars($_POST['email']);
-    $message = htmlspecialchars($_POST['message']);
+    // Get the form data securely from the $_GET array
+    $name = htmlspecialchars($_GET['name']);
+    $email = htmlspecialchars($_GET['email']);
+    $message = htmlspecialchars($_GET['message']);
 
     // Recipient email address - Change this to your email
     $to = 'ahmed.yasser200622@gmail.com';
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_body .= "Email: " . $email . "\n";
     $email_body .= "Message:\n" . $message . "\n";
 
-    // Set email headers to avoid issues with spam filters
+    // Set email headers
     $headers = "From: " . $email . "\r\n";
     $headers .= "Reply-To: " . $email . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
