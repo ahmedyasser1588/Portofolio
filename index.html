@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* ===== Google Fonts ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* ===== CSS Variables ===== */
+        :root {
+            /* Colors (Light Mode) - Blue/Purple Palette */
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #8a2be2; /* Purple accent */
+            --background-color: #f4f6f9;
+            --surface-color: #ffffff;
+            --text-color: #333333;
+            --text-muted-color: #666666;
+            --border-color: #e0e0e0;
+
+            /* Typography */
+            --body-font: 'Poppins', sans-serif;
+            --h1-font-size: 3rem;
+            --h2-font-size: 2rem;
+            --h3-font-size: 1.25rem;
+            --normal-font-size: 1rem;
+
+            /* Spacing & Layout */
+            --header-height: 4rem;
+            --container-width: 1024px;
+            --section-padding: 5rem 0 2rem;
+
+            /* Styling */
+            --border-radius: 0.75rem;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition-speed: 0.3s ease;
+        }
+
+        /* ===== Dark Mode Variables ===== */
+        body.dark-mode {
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted-color: #a0a0a0;
+            --border-color: #333333;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== Base Styles ===== */
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color var(--transition-speed);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* ===== Layout Helpers ===== */
+        .container {
+            max-width: var(--container-width);
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: var(--section-padding);
+        }
+
+        .section-title {
+            font-size: var(--h2-font-size);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-image: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition-speed);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-image: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #fff;
+            background-size: 200% auto;
+        }
+
+        .btn-primary:hover {
+            background-position: right center; /* Gradient hover effect */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* ===== Preloader ===== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--background-color);
+            z-index: 1000;
+            display: grid;
+            place-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader-content {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            animation: preloader-pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes preloader-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ===== Header & Navbar ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: transparent;
+            z-index: 100;
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .header.scrolled {
+            background-color: var(--surface-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: var(--normal-font-size);
+            font-weight: 500;
+            color: var(--text-muted-color);
+            position: relative;
+        }
+
+        /* Animated underline and scroll spy active state */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width var(--transition-speed);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active-link::after {
+            width: 100%;
+        }
+
+        .nav-link.active-link,
+        .nav-link:hover {
+            color: var(--text-color);
+        }
+
+        .nav-toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .hamburger {
+            display: none; /* Hidden on desktop */
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            overflow: hidden; /* For background animation containment */
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: var(--h1-font-size);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: var(--h3-font-size);
+            color: var(--text-muted-color);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .hero .btn {
+            margin: 0.5rem;
+        }
+
+        /* Hero Background Animation (Gradient Waves) */
+        .hero-background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background-size: 400% 400%;
+            animation: gradientWave 15s ease infinite;
+            opacity: 0.15;
+        }
+
+        body.dark-mode .hero-background-animation {
+            opacity: 0.25;
+        }
+
+        @keyframes gradientWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== About Me Section ===== */
+        .about-container {
+            grid-template-columns: 1fr 1.5fr;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-image img {
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transform: rotate(-3deg);
+            transition: transform 0.4s ease;
+        }
+
+        .about-image:hover img {
+            transform: rotate(0deg) scale(1.03);
+        }
+
+        .about-bio {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .about-highlights li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-highlights i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-top: 4px;
+        }
+
+        /* ===== Skills Section ===== */
+        .skills-container {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: var(--surface-color);
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            transition: var(--transition-speed);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-title {
+            font-size: var(--h3-font-size);
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-description {
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+            line-height: 1.5;
+        }
+
+        /* ===== Projects Section ===== */
+        .projects-container {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px) scale(1.02); /* Subtle zoom-in and lift */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Updated CSS for Project Image */
+        .project-img {
+            width: 100%;
+            max-height: 250px; /* Set a max height for consistency */
+            object-fit: cover; /* This is key to crop/fit the image proportionally */
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--text-muted-color);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            flex-grow: 1; /* Pushes tools and links to the bottom */
+        }
+
+        .project-tools {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-tools span {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links .btn-icon {
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .project-links .btn-icon:hover {
+            background-color: var(--background-color);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* ===== Experience Section (Timeline) ===== */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* Timeline central line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1rem 2rem;
+            box-sizing: border-box;
+        }
+
+        /* Place items on left and right side */
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+
+        /* Timeline item circle point */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--surface-color);
+            border: 3px solid var(--primary-color);
+            top: 1.5rem;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -8px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -8px;
+        }
+
+        .timeline-item:hover::after {
+            transform: scale(1.2);
+        }
+
+        .timeline-content {
+            background-color: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .timeline-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== Contact Section ===== */
+        .contact-container {
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-data p {
+            font-size: 1.1rem;
+            color: var(--text-muted-color);
+            margin-bottom: 2rem;
+            max-width: 400px;
+        }
+
+        .contact-socials {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            font-size: 2rem;
+            color: var(--text-muted-color);
+            transition: color var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .social-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Contact Form Styling */
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--surface-color);
+            color: var(--text-color);
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--secondary-color-alpha, rgba(37, 117, 252, 0.2));
+        }
+
+        .form-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: var(--text-muted-color);
+            pointer-events: none;
+            transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+        }
+
+        .form-input:focus ~ .form-label,
+        .form-input:valid ~ .form-label {
+            top: -0.75rem;
+            left: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            background-color: var(--surface-color);
+            padding: 0 0.25rem;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-button {
+            width: fit-content;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background-color: var(--surface-color);
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted-color);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted-color);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* ===== Back to Top Button ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: -50px; /* Initially hidden */
+            right: 1.5rem;
+            background-color: var(--primary-color);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: bottom 0.4s ease, transform 0.3s ease;
+            z-index: 50;
+        }
+
+        .back-to-top.visible {
+            bottom: 1.5rem;
+            animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+        }
+
+        @keyframes bounce-in {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== Scroll Animations (Fade-in) ===== */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered animation for list items */
+        .animate-in.visible .timeline-item,
+        .animate-in.visible .skill-card {
+            transition-delay: calc(0.1s * var(--animation-order));
+        }
+
+        /* ===== Responsive Design ===== */
+        @media screen and (max-width: 992px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-image {
+                margin: 0 auto 2rem auto;
+                max-width: 350px;
+            }
+            .about-highlights li {
+                justify-content: center;
+                text-align: left; /* Keep text aligned left even if centered container */
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .contact-data {
+                text-align: center;
+            }
+            .contact-socials {
+                justify-content: center;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            :root {
+                --h1-font-size: 2.5rem;
+                --h2-font-size: 1.75rem;
+                --normal-font-size: 0.95rem;
+            }
+
+            /* Mobile Menu */
+            .nav-menu {
+                position: fixed;
+                top: var(--header-height);
+                right: -100%; /* Hide off-screen */
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background-color: var(--surface-color);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                gap: 2rem;
+                transition: right 0.4s ease-in-out;
+                box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            }
+            .nav-menu.show-menu {
+                right: 0;
+            }
+            .hamburger {
+                display: block;
+            }
+
+            /* Timeline responsive adjustments */
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 3rem;
+                padding-right: 1rem;
+            }
+            .timeline-item:nth-child(odd) {
+                left: 0;
+                text-align: left;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0;
+                padding-left: 3rem;
+            }
+            .timeline-item::after {
+                left: 12px; /* Adjust dot position to match new line */
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="preloader-content">A.Y</div>
+    </div>
+
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#hero" class="logo">A.Y. Portfolio</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#hero" class="nav-link active-link">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle-group">
+                <i class='bx bx-moon theme-toggle' id="theme-toggle-button"></i>
+                <div class="hamburger" id="hamburger-menu">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero section" id="hero">
+            <div class="hero-background-animation"></div>
+            <div class="hero-content container animate-in">
+                <h1 class="hero-title">Ahmed Yasser Ahmed</h1>
+                <h2 class="hero-subtitle">Data Scientist | Machine Learning Engineer | AI Student</h2>
+                <p class="hero-description">Transforming raw data into actionable insights where analytics meets creativity and models solve real-world challenges.</p>
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="AhmedYasser_CV.pdf" download class="btn btn-secondary">Download CV</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+        </section>
+
+        <section class="about section" id="about">
+            <div class="about-container container grid animate-in">
+                <div class="about-image">
+                    <img src="1.png" alt="Profile Picture">
+                </div>
+                <div class="about-data">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="about-bio">
+                        Hello! I'm Ahmed Yasser, a Data Science Engineer passionate about turning data into actionable insights. My journey combines strong foundations in mathematics with hands-on experience in Python, Machine Learning, NLP, and Computer Vision.
+
+I enjoy solving complex problems, whether it's analyzing large datasets, building predictive models, or optimizing workflows with cloud tools like Azure and MLflow. My experience competing in ICPC and contributing to projects through the Digital Egypt Pioneers Initiative (DEPI) has sharpened both my technical skills and problem-solving mindset.
+
+I thrive on delivering data-driven solutions that make real-world impact and collaborating with teams to turn insights into actionable results.
+                    </p>
+                    <ul class="about-highlights">
+                        <li><i class='bx bx-code-alt'></i> <strong>Core Passion:</strong> Turning raw data into actionable insights through Machine Learning, NLP, and Computer Vision.</li>
+                        <li><i class='bx bx-atom'></i> <strong>Current Focus:</strong> Enhancing AI & Data Science skills via the Digital Egypt Pioneers Initiative (DEPI), working with Python, Azure, MLflow, and MLOps tools.</li>
+                        <li><i class='bx bx-joystick'></i> <strong>Fun Fact:</strong> I sharpen my problem-solving skills by competing in ICPC programming contests, combining logic, creativity, and speed.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills section" id="skills">
+            <h2 class="section-title animate-in">My Technical Toolkit</h2>
+            <div class="skills-container container grid animate-in">
+                <div class="skill-card">
+                    <i class='bx bxl-c-plus-plus skill-icon'></i>
+                    <h3 class="skill-title">Machine Learning & AI</h3>
+                    <p class="skill-description">Strong foundation in Machine Learning (ML), Deep Learning (DL), Natural Language Processing (NLP), and Computer Vision.</p>
+                </div>
+                <div class="skill-card">
+                    <i class='bx bx-data skill-icon'></i>
+                    <h3 class="skill-title">Data Handling</h3>
+                    <p class="skill-description">Processed and cleaned datasets using Pandas and NumPy, and developed insightful visualizations with Matplotlib and Seaborn to support data-driven decisions.</p>
+                </div>
+                <div class="skill-card">
+                    <i class='bx bxl-html5 skill-icon'></i>
+                    <h3 class="skill-title">Tools & Platforms</h3>
+                    <p class="skill-description">Worked with Microsoft Azure and MLflow to manage machine learning workflows, deploy models, and monitor their performance.</p>
+                </div>
+                <div class="skill-card">
+                    <i class='bx bx-brain skill-icon'></i>
+                    <h3 class="skill-title">Mathematics & Foundations</h3>
+                    <p class="skill-description">Strong foundation in Applied Mathematics and Statistics, leveraging quantitative methods to analyze data and inform decision-making.</p>
+                </div>
+                   <div class="skill-card">
+                    <i class='bx bx-brain skill-icon'></i>
+                    <h3 class="skill-title">Programming & Languages</h3>
+                    <p class="skill-description">Proficient in Python and C++ for data analysis, algorithm development, and problem-solving tasks.</p>
+                </div>
+                   <div class="skill-card">
+                    <i class='bx bx-brain skill-icon'></i>
+                    <h3 class="skill-title">Computer Science Fundamentals</h3>
+                    <p class="skill-description">Skilled in Python and C++ for building data-driven solutions, implementing algorithms, and tackling complex computational problems.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects section" id="projects">
+            <h2 class="section-title animate-in">Featured Projects</h2>
+            <div class="projects-container container grid animate-in">
+                <article class="project-card">
+                    <img src="image_project_1.jpg" alt="Project 1 Thumbnail" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">California Housing Price Prediction</h3>
+                        <p class="project-description"> Built a predictive regression model using XGBoost Regressor to forecast housing prices in California. Conducted extensive data exploration, preprocessing, and correlation analysis using Pandas and Seaborn. Achieved strong model performance with MAE = 0.31 and R² = 0.83. Developed insightful visualizations, including scatter plots of actual vs. predicted prices and correlation heatmaps, to communicate findings and support data-driven decisions.</p>
+                        <div class="project-tools">
+                            <span>Python</span><span>XGBoost</span><span>Pandas</span><span>Seaborn</span><span>Matplotlib</span><span>Scikit-learn</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank" class="btn btn-icon"><i class='bx bxl-github'></i> Code</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="experience section" id="experience">
+            <h2 class="section-title animate-in">Work & Leadership Experience</h2>
+            <div class="experience-container container animate-in">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Google Developer Student Club (GDSC) – English Team Member</h3>
+                            <span class="timeline-date">2024</span>
+                            <p class="timeline-description">Collaborated on content creation, communication tasks, and technical activities, contributing to a vibrant student tech community.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">ICPC – Contestant</h3>
+                            <span class="timeline-date">2023 - 2025</span>
+                            <p class="timeline-description">Competed in algorithmic problem-solving challenges, strengthening analytical thinking, coding efficiency, and teamwork skills.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Math & Science Tutor</h3>
+                            <span class="timeline-date">2024 - 2025</span>
+                            <p class="timeline-description">Tutored 100+ students in Mathematics and Statistics fundamentals. Adapted teaching methods to individual learning styles, improving overall student understanding and performance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact section" id="contact">
+            <div class="contact-container container grid animate-in">
+                <div class="contact-data">
+                    <h2 class="section-title">Let's Connect</h2>
+                    <p>Have a question, an opportunity, or just want to talk about tech? Feel free to reach out!</p>
+                    <div class="contact-socials">
+                        <a href="https://www.linkedin.com/in/ahmedyasserengineer" target="_blank" class="social-link"><i class='bx bxl-linkedin-square'></i></a>
+                        <a href="https://github.com/ahmedyasser1588" target="_blank" class="social-link"><i class='bx bxl-github'></i></a>
+                        <a href="mailto:ahmed.yasser200622@gmail.com" target="_blank" class="social-link"><i class='bx bxl-gmail'></i></a>
+                    </div>
+                </div>
+                <form action="submit_form.php" method="post" class="contact-form">
+                    <div class="input-group">
+                        <input type="text" name="name" required class="form-input">
+                        <label class="form-label">Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" required class="form-input">
+                        <label class="form-label">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea name="message" rows="5" required class="form-input"></textarea>
+                        <label class="form-label">Message</label> 
+                    </div>
+                    <button type="submit" class="btn btn-primary form-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container container">
+            <p class="footer-copyright">&copy; 2025 Ahmed Yasser. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top-button">
+        <i class='bx bx-chevrons-up'></i>
+    </a>
+
+    <script>
+        /**
+         * Modern Portfolio Website JavaScript Logic
+         *
+         * Sections:
+         * 1. Preloader Management
+         * 2. Theme Toggle (Dark/Light Mode)
+         * 3. Header & Navbar Behavior (Sticky, Mobile Menu Toggle)
+         * 4. Scroll Spy (Navbar link highlighting)
+         * 5. Scroll Animations (Intersection Observer for fade-in effects)
+         * 6. Back to Top Button Visibility
+         */
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // --- Element Selectors ---
+            const preloader = document.querySelector('.preloader');
+            const themeToggleButton = document.getElementById('theme-toggle-button');
+            const body = document.body;
+            const header = document.querySelector('.header');
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section[id]');
+            const backToTopButton = document.getElementById('back-to-top-button');
+
+            // --- 1. Preloader Management ---
+            window.addEventListener('load', () => {
+                preloader.classList.add('hidden');
+            });
+
+            // --- 2. Theme Toggle (Dark/Light Mode) ---
+            // Function to apply theme based on saved preference or system setting
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.add('dark-mode');
+                    themeToggleButton.classList.replace('bx-moon', 'bx-sun');
+                } else {
+                    body.classList.remove('dark-mode');
+                    themeToggleButton.classList.replace('bx-sun', 'bx-moon');
+                }
+            };
+
+            // Check local storage for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            // Check system preference if no saved theme
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else if (systemPrefersDark) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
+            }
+
+            // Theme toggle button click event listener
+            themeToggleButton.addEventListener('click', () => {
+                const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            // --- 3. Header & Navbar Behavior ---
+            // Sticky Header on Scroll
+            const handleScrollHeader = () => {
+                if (window.scrollY >= 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            };
+
+            // Mobile Menu Toggle
+            hamburgerMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('show-menu');
+                // Toggle hamburger icon animation (optional: change between menu and close icon)
+                hamburgerMenu.querySelector('i').classList.toggle('bx-menu');
+                hamburgerMenu.querySelector('i').classList.toggle('bx-x');
+            });
+
+            // Close mobile menu when a nav link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('show-menu');
+                    hamburgerMenu.querySelector('i').classList.remove('bx-x');
+                    hamburgerMenu.querySelector('i').classList.add('bx-menu');
+                });
+            });
+
+            // --- 4. Scroll Spy ---
+            const handleScrollSpy = () => {
+                const scrollY = window.pageYOffset;
+
+                sections.forEach(current => {
+                    const sectionHeight = current.offsetHeight;
+                    const sectionTop = current.offsetTop - 58; // Adjust offset for header height
+                    const sectionId = current.getAttribute('id');
+                    const correspondingNavLink = document.querySelector(`.nav-menu a[href*=${sectionId}]`);
+
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        // Remove active class from all links first
+                        navLinks.forEach(link => link.classList.remove('active-link'));
+                        // Add active class to the correct link
+                        if (correspondingNavLink) {
+                            correspondingNavLink.classList.add('active-link');
+                        }
+                    }
+                });
+            };
+
+            // --- 5. Scroll Animations (Intersection Observer) ---
+            const animateElements = document.querySelectorAll('.animate-in');
+
+            const observerOptions = {
+                root: null, // observes intersections relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.1 // trigger when 10% of the element is visible
+            };
+
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Add staggered delay for child elements like skill cards or timeline items
+                        if (entry.target.querySelectorAll('.timeline-item, .skill-card').length > 0) {
+                            entry.target.querySelectorAll('.timeline-item, .skill-card').forEach((child, childIndex) => {
+                                child.style.setProperty('--animation-order', childIndex);
+                            });
+                        }
+                        entry.target.classList.add('visible');
+                        // Optional: stop observing once animated to save resources
+                        // observer.unobserve(entry.target); 
+                    } else {
+                        // Optional: remove class to re-animate when scrolling back up
+                        // entry.target.classList.remove('visible'); 
+                    }
+                });
+            }, observerOptions);
+
+            animateElements.forEach(el => {
+                animationObserver.observe(el);
+            });
+
+            // --- 6. Back to Top Button Visibility ---
+            const handleBackToTopButton = () => {
+                if (window.scrollY >= 400) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            };
+
+            // --- Event Listener Registration for Scroll Events ---
+            window.addEventListener('scroll', () => {
+                handleScrollHeader();
+                handleScrollSpy();
+                handleBackToTopButton();
+            });
+
+        });
+    </script>
+</body>
+</html>
