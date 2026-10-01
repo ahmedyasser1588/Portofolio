@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed Yasser — Data Scientist & ML Engineer</title>
+<meta name="description" content="Portfolio of Ahmed Yasser: machine learning, NLP and computer vision projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<style>
+:root{--bg:#0f1024;--bg2:#171935;--ink:#ecebf8;--mute:#9b9cc0;--line:#2a2d55;--a:#8f97ff;--b:#ffb38a;--r:14px;
+--display:'Bricolage Grotesque',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif}
+[data-theme=light]{--bg:#f6f5fb;--bg2:#ffffff;--ink:#17183a;--mute:#5d5f86;--line:#dcdaf0;--a:#4a52d6;--b:#d9622b}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.65;transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--b);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+h1,h2,h3{font-family:var(--display);line-height:1.1}
+section{padding:5.5rem 0}
+h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;margin-bottom:2.5rem;max-width:18ch}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;font-weight:600;border:1.5px solid var(--line);transition:.25s;cursor:pointer;background:none;color:var(--ink);font:inherit;font-weight:600}
+.btn:hover{border-color:var(--a);transform:translateY(-2px)}
+.btn.p{background:var(--b);border-color:var(--b);color:#1a1020}
+.btn.p:hover{filter:brightness(1.08)}
+
+/* nav */
+header{position:fixed;inset:0 0 auto;z-index:50;padding:.9rem 0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem .55rem .55rem 1.3rem;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(14px)}
+.logo{font-family:var(--display);font-weight:800;font-size:1.15rem}
+.logo i{color:var(--b);font-style:normal}
+nav ul{display:flex;gap:.2rem;list-style:none}
+nav a{display:block;padding:.45rem .9rem;border-radius:999px;font-size:.92rem;color:var(--mute);transition:.2s}
+nav a:hover,nav a.on{color:var(--ink);background:var(--bg2)}
+.tools{display:flex;gap:.4rem;align-items:center}
+.ico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.25rem;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+#burger{display:none}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:7rem 0 4rem;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:620px;height:620px;right:-180px;top:-120px;background:radial-gradient(circle,color-mix(in srgb,var(--a) 35%,transparent),transparent 65%);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;position:relative}
+.hi{color:var(--b);font-weight:600;margin-bottom:1rem}
+.hero h1{font-size:clamp(2.8rem,7.5vw,5.6rem);font-weight:800;letter-spacing:-.03em}
+.role{font-family:var(--display);font-size:clamp(1.1rem,2.2vw,1.5rem);color:var(--mute);margin:1.2rem 0 1rem;min-height:1.8em}
+.role b{color:var(--a);font-weight:700}
+.role b::after{content:"|";margin-left:2px;animation:blink 1s steps(1) infinite;color:var(--b)}
+@keyframes blink{50%{opacity:0}}
+.hero p.lead{max-width:48ch;color:var(--mute);margin-bottom:2rem}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap}
+
+/* training card: the one memorable element */
+.run{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:1.2rem;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.run-h{display:flex;justify-content:space-between;font-size:.82rem;color:var(--mute);margin-bottom:.8rem}
+.run-h span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#5fd3a0;margin-right:.5rem}
+.run svg{width:100%;height:auto;display:block}
+.curve{fill:none;stroke:var(--a);stroke-width:3;stroke-linecap:round;stroke-dasharray:700;stroke-dashoffset:700;animation:draw 2.4s .4s ease-out forwards}
+.curve2{stroke:var(--b);animation-delay:.7s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.grid-l{stroke:var(--line);stroke-width:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem}
+.stats div{border-top:1px solid var(--line);padding-top:.6rem;font-size:.78rem;color:var(--mute)}
+.stats strong{display:block;font-family:var(--display);font-size:1.4rem;color:var(--ink)}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.5fr;gap:3.5rem;align-items:start}
+.about h2{position:sticky;top:6rem;margin-bottom:0;max-width:12ch;font-size:clamp(2.2rem,5vw,3.4rem)}
+.about p{color:var(--mute);margin-bottom:1.1rem;max-width:62ch}
+.focus{margin-top:1.6rem;display:grid;gap:1rem}
+.focus div{display:flex;gap:.9rem;padding:1rem 0;border-top:1px solid var(--line)}
+.focus i{font-size:1.4rem;color:var(--b);margin-top:.15rem}
+
+/* skills */
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:0 4rem}
+.sk{padding:1.5rem 0;border-top:1px solid var(--line)}
+.sk h3{font-size:1.15rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.6rem}
+.sk h3 i{color:var(--a)}
+.sk p{color:var(--mute);font-size:.93rem;margin-bottom:.8rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tags span{font-size:.8rem;padding:.25rem .7rem;border-radius:999px;background:var(--bg2);border:1px solid var(--line)}
+
+/* why me */
+.why{background:var(--bg2);border-block:1px solid var(--line)}
+.whyg{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem 2rem}
+.whyg h3{font-size:1.1rem;margin-bottom:.5rem}
+.whyg i{font-size:1.6rem;color:var(--b);display:block;margin-bottom:.7rem}
+.whyg p{color:var(--mute);font-size:.93rem}
+
+/* projects */
+.pr{display:grid;grid-template-columns:90px 1fr auto;gap:1.5rem;padding:2rem 0;border-top:1px solid var(--line);align-items:start;transition:.3s}
+.pr:last-child{border-bottom:1px solid var(--line)}
+.pr:hover{padding-left:1rem;background:linear-gradient(90deg,var(--bg2),transparent)}
+.metric{font-family:var(--display);font-size:1.9rem;font-weight:800;color:var(--a);line-height:1}
+.metric small{display:block;font-family:var(--body);font-size:.72rem;font-weight:500;color:var(--mute);margin-top:.3rem}
+.pr h3{font-size:1.4rem;margin-bottom:.5rem}
+.pr p{color:var(--mute);font-size:.94rem;max-width:62ch;margin-bottom:.9rem}
+
+/* experience */
+.tl{border-left:2px solid var(--line);margin-left:.4rem}
+.ev{position:relative;padding:0 0 2.2rem 2rem}
+.ev::before{content:"";position:absolute;left:-7px;top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--b);box-shadow:0 0 0 4px var(--bg)}
+.ev time{font-size:.85rem;color:var(--b);font-weight:600}
+.ev h3{font-size:1.2rem;margin:.2rem 0 .4rem}
+.ev p{color:var(--mute);max-width:64ch;font-size:.95rem}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.contact p{color:var(--mute);margin-bottom:1.6rem;max-width:40ch}
+.soc{display:flex;gap:.6rem}
+form{display:grid;gap:1rem}
+.f{position:relative}
+.f input,.f textarea{width:100%;padding:1.35rem 1rem .55rem;border-radius:var(--r);border:1px solid var(--line);background:var(--bg2);color:var(--ink);font:inherit;resize:vertical}
+.f label{position:absolute;left:1rem;top:.95rem;color:var(--mute);pointer-events:none;transition:.2s}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--a)}
+.f input:focus+label,.f input:not(:placeholder-shown)+label,.f textarea:focus+label,.f textarea:not(:placeholder-shown)+label{top:.3rem;font-size:.72rem;color:var(--a)}
+form .btn{justify-self:start}
+#status{font-size:.92rem;min-height:1.4em}
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--mute);font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+.rv{opacity:0;transform:translateY(18px);transition:.7s}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:860px){
+ .hero .wrap,.about,.contact,.skills{grid-template-columns:1fr}
+ .whyg{grid-template-columns:1fr 1fr}
+ .pr{grid-template-columns:1fr}
+ .about h2{position:static;margin-bottom:1rem}
+ #burger{display:grid}
+ nav{position:fixed;inset:5rem 1rem auto;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:.8rem;display:none}
+ nav.open{display:block}
+ nav ul{flex-direction:column}
+}
+@media(max-width:520px){.whyg{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.curve{stroke-dashoffset:0}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap"><div class="bar">
+  <a href="#top" class="logo">Ahmed<i>.</i>Yasser</a>
+  <nav id="nav"><ul>
+   <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#why">Why me</a></li>
+   <li><a href="#projects">Projects</a></li><li><a href="#experience">Experience</a></li><li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <div class="tools">
+   <button class="ico" id="theme" aria-label="Toggle theme"><i class="bx bx-sun"></i></button>
+   <button class="ico" id="burger" aria-label="Menu"><i class="bx bx-menu"></i></button>
+  </div>
+ </div></div>
+</header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+ <div>
+  <p class="hi">Hi, I'm</p>
+  <h1>Ahmed Yasser</h1>
+  <p class="role">I build <b id="typed">machine learning models</b></p>
+  <p class="lead">Data Scientist and ML Engineer. I turn raw data into predictions people can act on, from cleaning and features to deployment and monitoring.</p>
+  <div class="cta">
+   <a href="#projects" class="btn p">View my work</a>
+   <a href="Ahmed_Yasser_CV.pdf" download class="btn"><i class="bx bx-download"></i> Download CV</a>
+   <a href="#contact" class="btn">Get in touch</a>
+  </div>
+ </div>
+ <div class="run" aria-label="Sample model training chart">
+  <div class="run-h"><span>housing-xgb · training</span><span>epoch 200</span></div>
+  <svg viewBox="0 0 400 220" role="img" aria-label="Loss curves going down">
+   <line class="grid-l" x1="0" y1="55" x2="400" y2="55"/><line class="grid-l" x1="0" y1="110" x2="400" y2="110"/><line class="grid-l" x1="0" y1="165" x2="400" y2="165"/>
+   <path class="curve" d="M5 20 C60 40 70 120 130 145 S240 180 300 188 S370 194 395 195"/>
+   <path class="curve curve2" d="M5 35 C60 60 80 130 140 152 S250 186 310 196 S375 203 395 203"/>
+  </svg>
+  <div class="stats"><div><strong>0.83</strong>R² score</div><div><strong>0.31</strong>MAE</div><div><strong>92%</strong>NLP accuracy</div></div>
+ </div>
+</div></section>
+
+<section id="about"><div class="wrap about rv">
+ <h2>Turning data into decisions.</h2>
+ <div>
+  <p>I'm a Data Science engineer skilled in Python, Machine Learning, NLP and Computer Vision. I build predictive models and optimize workflows using Azure and MLflow.</p>
+  <p>With ICPC competition and DEPI project experience, I enjoy tackling complex datasets and delivering solutions with real-world impact. I'm open to freelance projects where I can help teams turn data into results.</p>
+  <div class="focus">
+   <div><i class="bx bx-code-alt"></i><span><strong>Core passion.</strong> Turning raw data into actionable insights with ML, NLP and Computer Vision.</span></div>
+   <div><i class="bx bx-atom"></i><span><strong>Current focus.</strong> Growing my AI and data science skills through the Digital Egypt Pioneers Initiative (DEPI), with Python, Azure, MLflow and MLOps tools.</span></div>
+  </div>
+ </div>
+</div></section>
+
+<section id="skills"><div class="wrap rv">
+ <h2>Technical toolkit</h2>
+ <div class="skills">
+  <div class="sk"><h3><i class="bx bx-brain"></i>Machine Learning & AI</h3><p>Strong foundation in ML, deep learning, NLP and computer vision.</p><div class="tags"><span>Scikit-learn</span><span>XGBoost</span><span>TensorFlow</span><span>PyTorch</span><span>NLP</span><span>OpenCV</span></div></div>
+  <div class="sk"><h3><i class="bx bx-data"></i>Data handling</h3><p>Cleaning, analysis and visualization that supports data-driven decisions.</p><div class="tags"><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span></div></div>
+  <div class="sk"><h3><i class="bx bx-cloud"></i>Tools & platforms</h3><p>Managing ML workflows, deploying models and monitoring them.</p><div class="tags"><span>Azure</span><span>MLflow</span><span>MLOps</span><span>Git</span></div></div>
+  <div class="sk"><h3><i class="bx bx-code-alt"></i>Programming</h3><p>Algorithms, problem solving and data-driven solutions.</p><div class="tags"><span>Python</span><span>C++</span><span>Data structures</span><span>Algorithms</span></div></div>
+  <div class="sk"><h3><i class="bx bx-math"></i>Math & statistics</h3><p>Applied mathematics and statistics to analyze data and inform decisions.</p><div class="tags"><span>Statistics</span><span>Linear algebra</span><span>Probability</span></div></div>
+  <div class="sk"><h3><i class="bx bx-user-voice"></i>Soft skills</h3><p>Clear communication, a quick-learning mindset and competitive-programming problem solving.</p><div class="tags"><span>Communication</span><span>Problem solving</span><span>Adaptability</span></div></div>
+ </div>
+</div></section>
+
+<section id="why" class="why"><div class="wrap rv">
+ <h2>Why work with me</h2>
+ <div class="whyg">
+  <div><i class="bx bx-trending-up"></i><h3>End-to-end expertise</h3><p>I handle the full pipeline: cleaning, feature engineering, model selection, deployment and monitoring.</p></div>
+  <div><i class="bx bx-bulb"></i><h3>Proven problem solving</h3><p>ICPC and DEPI experience taught me to ship solutions that work, not just look good on paper.</p></div>
+  <div><i class="bx bx-chip"></i><h3>Modern tools</h3><p>Python, TensorFlow, PyTorch, NLP, Computer Vision, Azure and MLflow for scalable, robust models.</p></div>
+  <div><i class="bx bx-target-lock"></i><h3>Results-driven</h3><p>I focus on measurable impact: better predictions, faster workflows, clearer decisions.</p></div>
+  <div><i class="bx bx-conversation"></i><h3>Client-oriented</h3><p>I communicate clearly and make sure my work fits into your business or project.</p></div>
+  <div><i class="bx bx-rocket"></i><h3>Fast and agile</h3><p>Competitive programming taught me to deliver quickly and reliably.</p></div>
+ </div>
+</div></section>
+
+<section id="projects"><div class="wrap rv">
+ <h2>Featured projects</h2>
+ <article class="pr">
+  <div class="metric">0.83<small>R² score</small></div>
+  <div><h3>California Housing Price Prediction</h3><p>Regression model using XGBoost to forecast California housing prices. Covered data exploration, preprocessing and correlation analysis, with actual-vs-predicted plots and heatmaps to communicate findings. MAE 0.31.</p><div class="tags"><span>Python</span><span>XGBoost</span><span>Pandas</span><span>Seaborn</span><span>Scikit-learn</span></div></div>
+  <a class="btn" href="https://github.com/ahmedyasser1588/California-Housing-Price-Prediction" target="_blank" rel="noopener"><i class="bx bxl-github"></i> Code</a>
+ </article>
+ <article class="pr">
+  <div class="metric">92%<small>accuracy</small></div>
+  <div><h3>Sentiment Analysis Model</h3><p>NLP model that classifies text as positive, negative or neutral. Text preprocessing with NLTK and spaCy, and an RNN classification pipeline trained on a public dataset.</p><div class="tags"><span>Python</span><span>NLTK</span><span>spaCy</span><span>TensorFlow</span><span>Keras</span></div></div>
+  <a class="btn" href="#" target="_blank" rel="noopener"><i class="bx bxl-github"></i> Code</a>
+ </article>
+ <article class="pr">
+  <div class="metric">CNN<small>vision</small></div>
+  <div><h3>Image Recognition System</h3><p>Computer vision system that classifies images with a convolutional neural network, including data augmentation and a streamlined inference pipeline for real-time predictions.</p><div class="tags"><span>Python</span><span>PyTorch</span><span>OpenCV</span><span>Computer Vision</span></div></div>
+  <a class="btn" href="#" target="_blank" rel="noopener"><i class="bx bxl-github"></i> Code</a>
+ </article>
+</div></section>
+
+<section id="experience"><div class="wrap rv">
+ <h2>Work & leadership</h2>
+ <div class="tl">
+  <div class="ev"><time>2024 – 2025</time><h3>Data Analysis Committee Member, IEEE Student Branch (FSB)</h3><p>Supported team projects, drove data insights and helped the committee deliver its outcomes.</p></div>
+  <div class="ev"><time>2024</time><h3>English Team Member, Google Developer Student Club (GDSC)</h3><p>Worked on content creation, communication and technical activities for a vibrant student tech community.</p></div>
+  <div class="ev"><time>2023 – 2024</time><h3>ICPC Contestant</h3><p>Competed in algorithmic problem-solving contests, building analytical thinking, coding efficiency and teamwork.</p></div>
+ </div>
+</div></section>
+
+<section id="contact"><div class="wrap contact rv">
+ <div>
+  <h2>Let's talk.</h2>
+  <p>Got a question, an opportunity, or just want to chat about tech? Message me. It's free and there are no strings attached.</p>
+  <div class="soc">
+   <a class="ico" href="https://www.linkedin.com/in/ahmedyasserengineer" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bx bxl-linkedin"></i></a>
+   <a class="ico" href="https://github.com/ahmedyasser1588" target="_blank" rel="noopener" aria-label="GitHub"><i class="bx bxl-github"></i></a>
+   <a class="ico" href="mailto:ahmed.yasser200622@gmail.com" aria-label="Email"><i class="bx bx-envelope"></i></a>
+  </div>
+ </div>
+ <form id="form" action="https://formspree.io/f/xgvlqgak" method="POST">
+  <div class="f"><input name="name" placeholder=" " required><label>Name</label></div>
+  <div class="f"><input type="email" name="email" placeholder=" " required><label>Email</label></div>
+  <div class="f"><textarea name="message" rows="5" placeholder=" " required></textarea><label>Message</label></div>
+  <button class="btn p" type="submit">Send message</button>
+  <p id="status" role="status"></p>
+ </form>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>© 2025 Ahmed Yasser. All rights reserved.</span><a href="#top">Back to top ↑</a></div></footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),root=document.documentElement;
+// theme
+try{const t=localStorage.getItem('theme');if(t)root.dataset.theme=t}catch(e){}
+const icon=()=>$('#theme i').className='bx '+(root.dataset.theme==='dark'?'bx-sun':'bx-moon');icon();
+$('#theme').onclick=()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';icon();try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+// menu
+$('#burger').onclick=()=>$('#nav').classList.toggle('open');
+document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// scroll spy
+const links=[...document.querySelectorAll('nav a')];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>spy.observe(s));
+// typed role
+const words=['machine learning models','NLP pipelines','computer vision systems','data-driven solutions'];
+let w=0,c=0,del=false;const el=$('#typed');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){(function tick(){
+ const word=words[w];c+=del?-1:1;el.textContent=word.slice(0,c);
+ let d=del?35:70;
+ if(!del&&c===word.length){del=true;d=1600}else if(del&&c===0){del=false;w=(w+1)%words.length;d=300}
+ setTimeout(tick,d)})()}
+// form
+$('#form').addEventListener('submit',async e=>{
+ e.preventDefault();const f=e.target,s=$('#status');s.textContent='Sending…';
+ try{const r=await fetch(f.action,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
+  if(r.ok){f.reset();s.textContent='Message sent. I will get back to you soon.'}else s.textContent='Something went wrong. Please try again.'}
+ catch(_){s.textContent='Network error. Check your connection and try again.'}
+});
+})();
+</script>
+</body>
+</html>
